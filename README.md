@@ -15,16 +15,15 @@ git clone https://github.com/*/CoLAP
 Next, import the required packages and run this relation extraction example:
 
 ```python
+import models
+from data import to_colap_input
 from transformers import AutoModelForMaskedLM, AutoTokenizer
 import torch
-import models
 
 tokenizer = AutoTokenizer.from_pretrained("xlm-roberta-base")
 encoder = AutoModelForMaskedLM.from_pretrained("xlm-roberta-base", output_hidden_states=True)
 model = models.CoLAP(encoder, args={"xrcl":True, "xccl":False})
-```
 
-```python
 # relation extraction example
 sent_en = ["The coffee overflows from the cup. coffee <mask> cup",
            "Jake is the father of Finn. Jake <mask> Finn"]
@@ -32,11 +31,15 @@ sent_es = ["El café se desborda de la taza. café <mask> taza",
            "Jake es el padre de Finn. Jake <mask> Finn"]
 label = ["located", "parent"]
 
-from data import to_colap_input
-inputs = to_colap_input(data_source=sent_en, data_target=sent_es, label=label, label_source=label, tokenizer=tokenizer) 
-```
 
-```python
+inputs = to_colap_input(
+    data_source=sent_en,
+    data_target=sent_es,
+    label=label,
+    label_source=label,
+    tokenizer=tokenizer
+    ) 
+
 # train CoLAP
 optimizer = torch.optim.AdamW(model.parameters(), lr=2e-5)
 
