@@ -85,12 +85,6 @@ class BasePrompt(torch.utils.data.Dataset):
 
         mask_pos = torch.where(inputs["input_ids"] == self.tokenizer.mask_token_id)[1]
 
-        # if len(self) == 22631:
-        #     print(prompt, label)
-
-        if mask_pos.shape[0] == 0:
-            print(prompt, label)
-
         return {
             "input_ids": inputs["input_ids"].squeeze(0),
             "attention_mask": inputs["attention_mask"].squeeze(0),
