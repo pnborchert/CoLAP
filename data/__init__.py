@@ -1,0 +1,1 @@
+from ._base import to_colap_input
