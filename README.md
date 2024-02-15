@@ -31,6 +31,9 @@ sent_es = ["El café se desborda de la taza. café <mask> taza",
            "Jake es el padre de Finn. Jake <mask> Finn"]
 label = ["located", "parent"]
 
+label_scope = torch.unique(
+    tokenizer(label, add_special_tokens=False, return_tensors="pt")["input_ids"]
+    )
 
 inputs = to_colap_input(
     data_source=sent_en,
@@ -54,9 +57,9 @@ for i in range(10):
 # test performance
 test_es = ["El perro salta sobre el sofá. perro <mask> sofá",
            "El hijo de Antonio se llama Juan. Antonio <mask> Juan"]
+label = ["located", "parent"]
 
 inputs_test = to_colap_input(data_target=test_es, label=label, tokenizer=tokenizer)
-label_scope = torch.unique(tokenizer(label, add_special_tokens=False, return_tensors="pt")["input_ids"])
 
 with torch.no_grad():
     outputs = model(**inputs_test)
