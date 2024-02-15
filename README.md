@@ -69,7 +69,7 @@ with torch.no_grad():
 
 ### Benchmark
 
-To reproduce our benchmark results, download the datasets listed below and save them in the `datasets` directory. The XNLI dataset is also available from the Hugging Face datasets library.
+To reproduce our benchmark results, download the datasets listed below and save them in the `datasets` directory. By default, the XNLI dataset is downloaded from the Hugging Face datasets library.
 
 | Datasets | Links |
 |---------|------|
